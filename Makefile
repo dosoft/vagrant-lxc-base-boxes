@@ -1,6 +1,6 @@
 UBUNTU_BOXES= precise quantal raring saucy trusty
 DEBIAN_BOXES= squeeze wheezy sid jessie
-CENTOS_BOXES= 6
+CENTOS_BOXES= 6 7
 TODAY=$(shell date -u +"%Y-%m-%d")
 
 # Replace i686 with i386 and x86_64 with amd64
@@ -51,7 +51,7 @@ release:
 	git tag $(version)
 	git push && git push --tags
 
-clean: ALL_BOXES = ${DEBIAN_BOXES} ${UBUNTU_BOXES} ${CENTOS_BOXES} acceptance
+clean: ALL_BOXES = ${DEBIAN_BOXES} ${UBUNTU_BOXES} $(addprefix centos-, ${CENTOS_BOXES}) acceptance
 clean:
 	@for r in $(ALL_BOXES); do \
 		sudo -E ./clean.sh $${r}\
